@@ -9,50 +9,49 @@ import PyPDF2
 
 #Working directory
 print("Current Working Directory " , os.getcwd())
-myPath=os.chdir("D:/BITS MTech/4-sem/Project/Dupe check/Data sets/Resume&Job_Description/Original_Resumes")
+myPath=os.chdir("D:/BITS MTech/4-sem/Project/Dupe check/Data sets/Resume&Job_Description/dupe-check/dataset")
 
 #Count number of PDFs in the directory
 import glob
 pdfCounter = len(glob.glob1(myPath,"*.pdf"))
-print(pdfCounter)
 #Count number of Word documents in the directory
 docCounter = len(glob.glob1(myPath,"*.doc"))
-print(docCounter)
 docxCounter = len(glob.glob1(myPath,"*.docx"))
-print(docxCounter)
 
-#Read the PDF file names in the directory and store as a list
+#Read the file names with specific extension in the directory and store as a list
 def filebrowser(ext=""):
     "Returns files with an extension"
     return [f for f in glob.glob(f"*{ext}")]
 
 files = filebrowser(".pdf")
-print(files)
-files[1]
-#Pass each file name from the above "files" list to below code to read the PDF files and convert to a "text" and store in a dataframe-2
+df = [] 
 #open the PDF as an object and read it into PyPDF2
-pdfFileObj = open(files[1], 'rb')
-pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-# number of pages in pdf
-npages=pdfReader.numPages
-text2 = ""
-# create page object and extract text from all pages based on pages count n "npages"
-for pageNum in range(npages):
-    pageObj = pdfReader.getPage(pageNum)
-    text = pageObj.extractText()
-    text = text.replace('\n \n','').replace('\n','')
-    text2 = text2 +","+ text
-print(text2)
-pdfFileObj.close() #close the pdf file object
-print(files[1])
+for filenum in range(pdfCounter):
+    pdfFileObj = open(files[filenum], 'rb')
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    # number of pages in pdf
+    npages=pdfReader.numPages
+    text2 = ""
+    # create page object and extract text from all pages based on pages count n "npages"
+    for pageNum in range(npages):
+        pageObj = pdfReader.getPage(pageNum)
+        text = pageObj.extractText()
+        text = text.replace('\n \n','').replace('\n','')
+        text2 = text2 +","+ text
+    pdfFileObj.close() #close the pdf file object
+    df.append(pd.DataFrame({"DocID":[files[filenum]],"Resume":[text2]}))
+print(df.shape)
+
 # create an Empty DataFrame object 
-df = pd.DataFrame() 
-df.iloc[1]=pd.DataFrame({"DocID":[files[1]],"Resume":[text2]})  
-# append columns to an empty DataFrame 
+
+df.append(pd.DataFrame({"DocID":[files[1]],"Resume":[text2]}))
+df
+ 
 
 
 
-df1.append(df2) 
+
+
 
 #Pass each *.doc and *.docx throuth below code and create a dataframe-3
 import docx2txt
