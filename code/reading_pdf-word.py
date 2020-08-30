@@ -24,7 +24,9 @@ def filebrowser(ext=""):
     return [f for f in glob.glob(f"*{ext}")]
 
 files = filebrowser(".pdf")
-df = [] 
+
+df = pd.DataFrame()
+df2 = pd.DataFrame()
 #open the PDF as an object and read it into PyPDF2
 for filenum in range(pdfCounter):
     pdfFileObj = open(files[filenum], 'rb')
@@ -39,9 +41,13 @@ for filenum in range(pdfCounter):
         text = text.replace('\n \n','').replace('\n','')
         text2 = text2 +","+ text
     pdfFileObj.close() #close the pdf file object
-    df.append(pd.DataFrame({"DocID":[files[filenum]],"Resume":[text2]}))
-print(df)
-type(df)
+    df = pd.DataFrame(data = {"DocID":[files[filenum]],"Resume":[text2]})
+    df2 = df2.append(df)
+print(df2)
+type(df2)
+df2.size
+df2.info()
+pdfCounter
 
 
 
