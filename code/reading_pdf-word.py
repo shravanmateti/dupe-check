@@ -40,13 +40,10 @@ for filenum in range(pdfCounter):
         text2 = text2 +","+ text
     pdfFileObj.close() #close the pdf file object
     df.append(pd.DataFrame({"DocID":[files[filenum]],"Resume":[text2]}))
-print(df.shape)
+print(df)
+type(df)
 
-# create an Empty DataFrame object 
 
-df.append(pd.DataFrame({"DocID":[files[1]],"Resume":[text2]}))
-df
- 
 
 
 
