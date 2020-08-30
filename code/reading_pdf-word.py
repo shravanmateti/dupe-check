@@ -50,9 +50,19 @@ df2.info()
 pdfCounter
 
 
+df2.to_excel('pdf resumes.xls',index=False,header=True)
+
+first_column_pdf_extracted = df2. iloc[:, 0]
+type(first_column_pdf_extracted)
+pdf_ext_list = first_column_pdf_extracted.values.tolist()
+
+with open("file.txt", 'w') as output:
+    for row in files_not_in_pdf_ext_list:
+        output.write(str(row) + '\n')
 
 
-
+files_not_in_pdf_ext_list = set(files).difference(pdf_ext_list)
+files_not_in_pdf_ext_list
 
 
 
