@@ -54,8 +54,11 @@ def res(jobfile):
 
     LIST_OF_FILES = LIST_OF_FILES_DOC + LIST_OF_FILES_DOCX + LIST_OF_FILES_PDF
     # LIST_OF_FILES.remove("antiword.exe")
+    print("Total number of files")
+    len(LIST_OF_FILES)
     print("This is LIST OF FILES")
     print(LIST_OF_FILES)
+    
 
     # print("Total Files to Parse\t" , len(LIST_OF_PDF_FILES))
     print("####### PARSING ########")
